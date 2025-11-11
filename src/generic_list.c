@@ -10,13 +10,13 @@ struct list *list_init()
 //Insert from the front of the list
 struct list *list_insert_front(struct list *list, void *data, void (*destroy_data)(void *))
 {
-    if(list == NULL)
+    if(!list || !data || !destroy_data)
     {
         return NULL;
     }
 
     //Node creation
-    struct node *node_to_insert = calloc(1, sizeof(struct node));
+    struct node *node_to_insert = calloc(sizeof(struct node), 1);
     if(!node_to_insert)
         return NULL;
     node_to_insert->data = data;
@@ -24,8 +24,8 @@ struct list *list_insert_front(struct list *list, void *data, void (*destroy_dat
     node_to_insert->next = list->first_node;
     
     //Update list
-    list->size++;
     list->first_node = node_to_insert;
+    list->size++;
 
     return list;
 }
@@ -33,7 +33,7 @@ struct list *list_insert_front(struct list *list, void *data, void (*destroy_dat
 //Insert from the back of the list 
 struct list *list_insert_back(struct list *list, void *data, void (*destroy_data)(void *))
 {
-    if(list == NULL)
+    if(!list || !data || !destroy_data)
     {
         return NULL;
     }
@@ -41,7 +41,7 @@ struct list *list_insert_back(struct list *list, void *data, void (*destroy_data
     //If empty list
     if(list->size == 0)
     {
-        return list_insert_back(list, data, destroy_data);
+        return list_insert_front(list, data, destroy_data);
     }
 
     //Go to the place to insert
@@ -92,7 +92,7 @@ struct list *list_insert_at(struct list *list, void *data, void (*destroy_data)(
     }
 
     //Node creation
-    struct node *node_to_insert = calloc(1, sizeof(struct node));
+    struct node *node_to_insert = calloc(sizeof(struct node), 1);
     if(!node_to_insert)
         return NULL;
     node_to_insert->data = data;
