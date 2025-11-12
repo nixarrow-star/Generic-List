@@ -1,5 +1,5 @@
-#ifndef GENERIC_LIST_H
-#define GENERIC_LIST_H
+#ifndef GENERIC_LINK_LIST_H
+#define GENERIC_LINK_LIST_H
 #include <stddef.h>
 #include <stdlib.h>
 
@@ -24,4 +24,4 @@ void *list_get_at(struct list *list, size_t index);
 void *list_pop_at(struct list *list, size_t index);
 void list_destroy(struct list *list);
 
-#endif /* GENERIC_LIST_H */
+#endif /* GENERIC_LINK_LIST_H */

@@ -1,4 +1,4 @@
-#include "generic_list.h"
+#include "generic_link_list.h"
 
 //Init the list
 struct list *list_init()
