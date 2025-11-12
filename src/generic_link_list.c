@@ -1,14 +1,14 @@
 #include "generic_link_list.h"
 
 //Init the list
-struct list *list_init()
+struct link_list *list_init()
 {
-    struct list *list = calloc(1, sizeof(struct list));
+    struct link_list *list = calloc(1, sizeof(struct link_list));
     return list;
 }
 
 //Insert from the front of the list
-struct list *list_insert_front(struct list *list, void *data, void (*destroy_data)(void *))
+struct link_list *list_insert_front(struct link_list *list, void *data, void (*destroy_data)(void *))
 {
     if(!list || !data || !destroy_data)
     {
@@ -31,7 +31,7 @@ struct list *list_insert_front(struct list *list, void *data, void (*destroy_dat
 }
 
 //Insert from the back of the list 
-struct list *list_insert_back(struct list *list, void *data, void (*destroy_data)(void *))
+struct link_list *list_insert_back(struct link_list *list, void *data, void (*destroy_data)(void *))
 {
     if(!list || !data || !destroy_data)
     {
@@ -66,7 +66,7 @@ struct list *list_insert_back(struct list *list, void *data, void (*destroy_data
     return list;
 }
 
-struct list *list_insert_at(struct list *list, void *data, void (*destroy_data)(void *), size_t index)
+struct link_list *list_insert_at(struct link_list *list, void *data, void (*destroy_data)(void *), size_t index)
 {
     if(list == NULL)
     {
@@ -116,7 +116,7 @@ struct list *list_insert_at(struct list *list, void *data, void (*destroy_data)(
 }
 
 //Get the data at the index index
-void *list_get_at(struct list *list, size_t index)
+void *list_get_at(struct link_list *list, size_t index)
 {
     if(list == NULL)
     {
@@ -141,7 +141,7 @@ void *list_get_at(struct list *list, size_t index)
 }
 
 //Pop and return the data at index index
-void *list_pop_at(struct list *list, size_t index)
+void *list_pop_at(struct link_list *list, size_t index)
 {
     if(list == NULL)
     {
@@ -197,7 +197,7 @@ static void node_destroy(struct node *node)
 }
 
 //Destroy list
-void list_destroy(struct list *list)
+void list_destroy(struct link_list *list)
 {
     if(list != NULL)
     {
