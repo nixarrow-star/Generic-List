@@ -16,7 +16,7 @@ struct link_list *list_insert_front(struct link_list *list, void *data, void (*d
     }
 
     //Node creation
-    struct node *node_to_insert = calloc(sizeof(struct node), 1);
+    struct link_list_node *node_to_insert = calloc(1, sizeof(struct link_list_node));
     if(!node_to_insert)
         return NULL;
     node_to_insert->data = data;
@@ -45,14 +45,14 @@ struct link_list *list_insert_back(struct link_list *list, void *data, void (*de
     }
 
     //Go to the place to insert
-    struct node *cur_node = list->first_node;
+    struct link_list_node *cur_node = list->first_node;
     while(cur_node->next != NULL)
     {
         cur_node = cur_node->next;
     }
 
     //Node creation
-    struct node *node_to_insert = calloc(1, sizeof(struct node));
+    struct link_list_node *node_to_insert = calloc(1, sizeof(struct link_list_node));
     if(!node_to_insert)
         return NULL;
     node_to_insert->data = data;
@@ -92,14 +92,14 @@ struct link_list *list_insert_at(struct link_list *list, void *data, void (*dest
     }
 
     //Node creation
-    struct node *node_to_insert = calloc(sizeof(struct node), 1);
+    struct link_list_node *node_to_insert = calloc(1, sizeof(struct link_list_node));
     if(!node_to_insert)
         return NULL;
     node_to_insert->data = data;
     node_to_insert->destroy_data = destroy_data;
 
     //Go to the place to insert
-    struct node *cur_node = list->first_node;
+    struct link_list_node *cur_node = list->first_node;
     while(index-1 > 0)
     {
         cur_node=cur_node->next;
@@ -107,7 +107,7 @@ struct link_list *list_insert_at(struct link_list *list, void *data, void (*dest
     }
     
     //Update list
-    struct node *cur_next = cur_node->next;
+    struct link_list_node *cur_next = cur_node->next;
     cur_node->next = node_to_insert;
     node_to_insert->next = cur_next;
     list->size++;
@@ -130,7 +130,7 @@ void *list_get_at(struct link_list *list, size_t index)
     }
 
     //Go to the node to get
-    struct node *cur_node = list->first_node;
+    struct link_list_node *cur_node = list->first_node;
     while(index > 0)
     {
         cur_node = cur_node->next;
@@ -157,7 +157,7 @@ void *list_pop_at(struct link_list *list, size_t index)
     //If it is first data
     if(index == 0)
     {
-        struct node *node_to_destroy = list->first_node;
+        struct link_list_node *node_to_destroy = list->first_node;
         list->first_node = node_to_destroy->next;
         void *data = node_to_destroy->data;
         free(node_to_destroy);
@@ -166,14 +166,14 @@ void *list_pop_at(struct link_list *list, size_t index)
     }
 
     //Go to the place to pop
-    struct node *cur_node = list->first_node;
+    struct link_list_node *cur_node = list->first_node;
     for (size_t i = 0; i < index - 1; i++)
     {
         cur_node = cur_node->next;
     }
 
-    struct node *node_to_destroy = cur_node->next;
-    struct node *cur_next = cur_node->next->next;
+    struct link_list_node *node_to_destroy = cur_node->next;
+    struct link_list_node *cur_next = cur_node->next->next;
 
     void *data = node_to_destroy->data;
 
@@ -186,7 +186,7 @@ void *list_pop_at(struct link_list *list, size_t index)
 }
 
 //Destroy all the nodes and the data
-static void node_destroy(struct node *node)
+static void node_destroy(struct link_list_node *node)
 {
     if(node != NULL)
     {

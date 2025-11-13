@@ -3,17 +3,17 @@
 #include <stddef.h>
 #include <stdlib.h>
 
-struct node
+struct link_list_node
 {
     void *data;
     void (*destroy_data)(void *);
-    struct node *next;
+    struct link_list_node *next;
 };
 
 struct link_list
 {
     size_t size;
-    struct node *first_node;
+    struct link_list_node *first_node;
 };
 
 struct link_list *list_init();
